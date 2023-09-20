@@ -2,11 +2,13 @@ package period_calculation
 
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @ExperimentalJsExport
 @JsExport
 class PeriodGenerator {
     private val dailyPeriodGenerator by lazy { DailyPeriodGenerator() }
+    @JsName("generatePeriod")
     fun generatePeriod(year: Int, periodType: PeriodType) =
         when (periodType) {
             PeriodType.DAILY -> {
