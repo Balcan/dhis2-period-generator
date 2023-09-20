@@ -23,6 +23,9 @@ kotlin {
         nodejs()
         useEsModules()
         binaries.library()
+        compilations["main"].packageJson{
+            customField("main", "kotlin\\dhis2-period-generator.mjs")
+        }
     }
     val hostOs = System.getProperty("os.name")
     val isArm64 = System.getProperty("os.arch") == "aarch64"
