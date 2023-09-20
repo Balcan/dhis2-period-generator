@@ -1,0 +1,15 @@
+{
+  "name": "example-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dhis2-period-generator": "../build/js/packages/dhis2-period-generator/"
+  }
+}
