@@ -11,6 +11,13 @@
     console.log(greeting.greet());
     document.getElementById('text').innerText = greeting.greet();
 </script>
+<!--<script type="module">
+    import {PeriodGenerator} from './dhis2-period-generator.mjs'
+    import {PeriodType} from './dhis2-period-generator.mjs'
+    const periodGenerator = new PeriodGenerator()
+    const result = periodGenerator.generatePeriod(2023, PeriodType.DAILY)
+    console.log(result);
+</script>-->
 <h1 id="text"></h1>
 </body>
 </html>
