@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="dhis2-period-generator-js-1.0.0-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="dhis2-period-generator-js-1.0.0-SNAPSHOT.jar">
+      <element id="module-output" name="dhis2-period-generator.jsMain" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Client</title>
+</head>
+<body>
+<script type="module">
+    import {Greetings} from './dhis2-period-generator.mjs'
+    const greeting = new Greetings()
+    console.log(greeting.greet());
+    document.getElementById('text').innerText = greeting.greet();
+</script>
+<h1 id="text"></h1>
+</body>
+</html>
