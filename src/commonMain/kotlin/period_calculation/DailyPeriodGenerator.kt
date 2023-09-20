@@ -1,7 +1,6 @@
 package period_calculation
 
 import kotlinx.datetime.*
-import utils.isoFormat
 import kotlin.js.ExperimentalJsExport
 
 @OptIn(ExperimentalJsExport::class)
@@ -16,7 +15,10 @@ class DailyPeriodGenerator {
         val days = mutableListOf<FixedPeriod>()
         for (day in 0..<date.daysUntil(endDate)) {
             val nextDay = date.plus(day, DateTimeUnit.DAY)
-            val value = nextDay.isoFormat()
+            val value = with(nextDay){
+                "$year${monthNumber.toString().padStart(2,'0')}${dayOfMonth.toString().padStart(2,'0')}"
+            }
+
             days.add(
                 FixedPeriod(
                     id = value,
