@@ -9,8 +9,11 @@ import kotlin.js.JsName
 class PeriodGenerator {
     private val dailyPeriodGenerator by lazy { DailyPeriodGenerator() }
     @JsName("generatePeriod")
-    fun generatePeriod(year: Int, periodType: PeriodType) =
-        when (periodType) {
+    fun generatePeriod(periodOptions: PeriodOptions): Array<FixedPeriod> {
+        val periodType = periodOptions.periodType
+        val year = periodOptions.year
+
+        return when (periodType) {
             PeriodType.DAILY -> {
                 dailyPeriodGenerator.getDailyPeriods(year, "")
             }
@@ -42,4 +45,5 @@ class PeriodGenerator {
                 emptyList()
             }
         }.toTypedArray()
+    }
 }
