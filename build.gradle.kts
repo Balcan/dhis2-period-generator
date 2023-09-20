@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.9.0"
+    kotlin("multiplatform") version "1.9.20-Beta"
 }
 
 group = "org.dhis2.periodgenerator"
@@ -23,6 +23,9 @@ kotlin {
         nodejs()
         useEsModules()
         binaries.library()
+        compilations["main"].packageJson{
+            customField("main", "kotlin\\dhis2-period-generator.mjs")
+        }
     }
     val hostOs = System.getProperty("os.name")
     val isArm64 = System.getProperty("os.arch") == "aarch64"
@@ -38,7 +41,11 @@ kotlin {
 
     
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting{
+            dependencies{
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -46,7 +53,11 @@ kotlin {
         }
         val jvmMain by getting
         val jvmTest by getting
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("@js-joda/timezone", "2.3.0"))
+            }
+        }
         val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
