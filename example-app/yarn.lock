@@ -2,12 +2,9 @@
 # yarn lockfile v1
 
 
-dhis2-period-generator@../build/js/packages/dhis2-period-generator/:
-  version "1.0.0-SNAPSHOT"
+"dhis2-period-generator@../build/js/packages/dhis2-period-generator/":
+  "resolved" "file:../build/js/packages/dhis2-period-generator"
+  "version" "1.0.0-SNAPSHOT"
   dependencies:
-    format-util "^1.0.5"
-
-format-util@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/format-util/-/format-util-1.0.5.tgz#1ffb450c8a03e7bccffe40643180918cc297d271"
-  integrity sha512-varLbTj0e0yVyRpqQhuWV+8hlePAgaoFRhNFj50BNjEIrw1/DphHSObtqwskVCPWNgzwPoQrZAbfa/SBiicNeg==
+    "@js-joda/core" "3.2.0"
+    "format-util" "^1.0.5"

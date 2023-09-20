@@ -55,7 +55,7 @@ kotlin {
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation(npm("@js-joda/timezone", "2.3.0"))
+//                implementation(npm("@js-joda/timezone", "2.3.0"))
             }
         }
         val jsTest by getting
