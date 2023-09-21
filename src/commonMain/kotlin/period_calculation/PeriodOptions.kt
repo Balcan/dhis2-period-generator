@@ -8,7 +8,7 @@ import kotlin.js.JsExport
 data class PeriodOptions(
     val year: Int,
     val periodType: PeriodType,
-    val calendar: CalendarType = CalendarType.GREGORIAN,
+    val calendar: CalendarType = CalendarType.Gregorian(),
     val locale: String = "en",
     val startingDay: Int = 1, // 1 is Monday
     val yearsCount: Int = 10,
