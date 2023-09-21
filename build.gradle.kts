@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.9.20-Beta"
+    id("maven-publish")
 }
 
 group = "org.dhis2.periodgenerator"
