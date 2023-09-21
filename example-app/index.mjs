@@ -12,5 +12,12 @@ const ethiopianResult = new PeriodGenerator().generatePeriod({
     calendar: new CalendarType.Ethiopian()
 })[0]
 
+const nepaliResult = new PeriodGenerator().generatePeriod({
+    year: 2015,
+    periodType: PeriodType.DAILY,
+    calendar: new CalendarType.Nepali()
+})[0]
+
 console.log(gregorianResult)
 console.log(ethiopianResult)
+// console.log(nepaliResult)

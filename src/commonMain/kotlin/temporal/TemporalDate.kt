@@ -1,6 +1,7 @@
 package temporal
 
 import calendar.EthiopianCalendar
+import calendar.NepaliCalendar
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.daysUntil
@@ -13,13 +14,15 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
     fun id() =
         "${year}${month.toString().padStart(2,'0')}${day.toString().padStart(2,'0')}"
 
+    abstract fun toIso8601():String
+
     @OptIn(ExperimentalJsExport::class)
     fun toFixedPeriod() = FixedPeriod(
         id(),
         iso = id(),
         name = name(),
-        startDate = toString(),
-        endDate = toString()
+        startDate = toIso8601(),
+        endDate = toIso8601()
     )
     abstract fun daysBetween(other:TemporalDate):Int
     abstract fun addDay():TemporalDate
@@ -43,6 +46,10 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
 
         override fun name(): String {
             return "$year/$month/$day"
+        }
+
+        override fun toIso8601(): String {
+            return "$year-$month-$day[u-ca=gregorian]"
         }
     }
 
@@ -74,6 +81,46 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
         override fun name(): String {
             return "${EthiopianCalendar.monthNames[month-1]}, $day, $year"
         }
+
+        override fun toIso8601(): String {
+            return "$year-${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}[u-ca=ethiopic]"
+        }
+    }
+
+    data class NepaliDate(
+        private val eYear: Int,
+        private val eMonth: Int,
+        private val eDay: Int
+    ) : TemporalDate(eYear, eMonth, eDay) {
+
+        override fun daysBetween(other: TemporalDate): Int {
+            var date = this
+            var countDate = 0
+            while (date != other) {
+                date = date.addDay()
+                countDate++
+            }
+
+            return countDate
+        }
+        override fun addDay(): NepaliDate {
+            val maxDayInMonth = NepaliCalendar.monthDays(year, month)
+            return when {
+                day + 1 <= maxDayInMonth -> copy(eDay = day + 1)
+                month + 1 <= NepaliCalendar.monthsInYear(year) -> copy(eMonth = month + 1, eDay = 1)
+                else -> copy(eYear = year + 1, eMonth = 1, eDay = 1)
+            }
+        }
+
+        override fun name(): String {
+            return "${NepaliCalendar.monthNames[month-1]}, $day, $year"
+        }
+
+        override fun toIso8601(): String {
+            return "$year-${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}[u-ca=nepali]"
+
+        }
+
     }
 
 }

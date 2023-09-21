@@ -1,6 +1,7 @@
 package period_calculation
 
 import calendar.EthiopianCalendar
+import calendar.NepaliCalendar
 import temporal.TemporalDate
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
@@ -18,6 +19,15 @@ class DailyPeriodGenerator {
                 Pair(
                     TemporalDate.EthiopianDate(year, 1, 1),
                     TemporalDate.EthiopianDate(year, 13, EthiopianCalendar.monthDays(year, 13))
+                )
+            }
+
+            is CalendarType.Nepali -> {
+                val lastMonth = NepaliCalendar.monthsInYear(year)
+                val lastMonthDay = NepaliCalendar.monthDays(year, lastMonth-1)
+                Pair(
+                    TemporalDate.NepaliDate(year, 1, 1),
+                    TemporalDate.NepaliDate(year, lastMonth, lastMonthDay)
                 )
             }
 

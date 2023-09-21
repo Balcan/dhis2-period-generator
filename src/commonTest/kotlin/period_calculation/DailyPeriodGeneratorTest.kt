@@ -36,4 +36,18 @@ class DailyPeriodGeneratorTest{
         assertTrue(result.first().id == "20150101")
         assertTrue(result.last().id == "20151305")
     }
+
+    @Test
+    fun shouldReturnNepaliDailyPeriod(){
+        val periodOptions = PeriodOptions(
+            year = 2015,
+            periodType = PeriodType.DAILY,
+            calendar = CalendarType.Nepali()
+        )
+        val result = generator.generatePeriod(periodOptions)
+
+        assertTrue(result.size == 365)
+        assertTrue(result.first().id == "20150101")
+        assertTrue(result.last().id == "20151230")
+    }
 }
