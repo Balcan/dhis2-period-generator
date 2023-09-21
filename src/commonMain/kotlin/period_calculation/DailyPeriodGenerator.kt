@@ -1,33 +1,39 @@
 package period_calculation
 
-import kotlinx.datetime.*
+import calendar.EthiopianCalendar
+import temporal.TemporalDate
 import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @OptIn(ExperimentalJsExport::class)
 class DailyPeriodGenerator {
+    @JsName("generateDailyPeriod")
     fun getDailyPeriods(
         year: Int,
-        calendar: String
+        calendar: CalendarType
     ): List<FixedPeriod> {
-        val date = LocalDate(year, Month.JANUARY, 1)
-        val endDate = LocalDate(year, Month.DECEMBER, 31)
-
-        val days = mutableListOf<FixedPeriod>()
-        for (day in 0..<date.daysUntil(endDate)) {
-            val nextDay = date.plus(day, DateTimeUnit.DAY)
-            val value = with(nextDay){
-                "$year${monthNumber.toString().padStart(2,'0')}${dayOfMonth.toString().padStart(2,'0')}"
+        val (date: TemporalDate, endDate: TemporalDate) = when(calendar)  {
+            is CalendarType.Ethiopian -> {
+                Pair(
+                    TemporalDate.EthiopianDate(year, 1, 1),
+                    TemporalDate.EthiopianDate(year, 13, EthiopianCalendar.monthDays(year, 13))
+                )
             }
 
-            days.add(
-                FixedPeriod(
-                    id = value,
-                    iso = value,
-                    name = nextDay.toString(),
-                    startDate = nextDay.toString(),
-                    endDate = nextDay.toString()
+            else -> {
+                Pair(
+                    TemporalDate.GregorianDate(year, 1, 1),
+                    TemporalDate.GregorianDate(year, 12, 31)
                 )
-            )
+            }
+        }
+
+        val days = mutableListOf(date.toFixedPeriod())
+        var nextDay: TemporalDate = date
+        for (day in 0..<date.daysBetween(endDate)) {
+            nextDay = nextDay.addDay()
+            days.add(nextDay.toFixedPeriod())
         }
         return days
     }

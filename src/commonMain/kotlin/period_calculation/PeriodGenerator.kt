@@ -12,10 +12,11 @@ class PeriodGenerator {
     fun generatePeriod(periodOptions: PeriodOptions): Array<FixedPeriod> {
         val periodType = periodOptions.periodType
         val year = periodOptions.year
+        val calendar = periodOptions.calendar
 
         return when (periodType) {
             PeriodType.DAILY -> {
-                dailyPeriodGenerator.getDailyPeriods(year, "")
+                dailyPeriodGenerator.getDailyPeriods(year, calendar)
             }
 
             PeriodType.WEEKLY,
