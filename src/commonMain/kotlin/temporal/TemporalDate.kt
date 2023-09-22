@@ -6,6 +6,7 @@ import calendar.NepaliCalendar
 sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
 
     abstract fun toIso8601(): String
+    abstract fun toTemporalSubfix():String
 
     abstract fun name(): String
     data class GregorianDate(
@@ -20,7 +21,11 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
         }
 
         override fun toIso8601(): String {
-            return "$year-$month-$day[u-ca=gregorian]"
+            return "$year-${month.toString().padStart(2, '0')}-${day.toString().padStart(2,'0')}"
+        }
+
+        override fun toTemporalSubfix(): String {
+            return "${toIso8601()}[u-ca=gregorian]"
         }
     }
 
@@ -37,6 +42,10 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
         override fun toIso8601(): String {
             return EthiopianCalendar.toGregorianDate(this).toIso8601()
         }
+
+        override fun toTemporalSubfix(): String {
+            return "${toIso8601()}[u-ca=ethiopian]"
+        }
     }
 
     data class NepaliDate(
@@ -51,6 +60,10 @@ sealed class TemporalDate(val year: Int, val month: Int, val day: Int) {
 
         override fun toIso8601(): String {
             return NepaliCalendar.toGregorianDate(this).toIso8601()
+        }
+
+        override fun toTemporalSubfix(): String {
+            return "${toIso8601()}[u-ca=nepali]"
         }
     }
 }
