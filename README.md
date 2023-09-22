@@ -15,3 +15,4 @@ This is also important to ensure that some concepts that are crucial in DHIS2 su
 ## Integration Examples
 
 - JavaScript integration example: https://github.com/dhis2/multi-calendar-dates/pull/26
+- Android integration example: https://github.com/dhis2/dhis2-android-capture-app/pull/3302
