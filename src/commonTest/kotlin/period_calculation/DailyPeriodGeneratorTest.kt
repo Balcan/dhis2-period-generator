@@ -1,6 +1,7 @@
 package period_calculation
 
 import calendar.EthiopianDateConverter
+import calendar.NepaliDateConverter
 import temporal.TemporalDate
 import kotlin.js.ExperimentalJsExport
 import kotlin.test.Test
@@ -92,5 +93,45 @@ class DailyPeriodGeneratorTest {
         )
 
         assertEquals(results, expected)
+    }
+
+    @Test
+    fun nepaliToGregorianConverter() {
+
+        val results = listOf(
+            NepaliDateConverter.toGregorianDate(TemporalDate.NepaliDate(2079, 5, 26)),
+            NepaliDateConverter.toGregorianDate(TemporalDate.NepaliDate(2070, 10, 11)),
+            NepaliDateConverter.toGregorianDate(TemporalDate.NepaliDate(2080, 4, 20)),
+            NepaliDateConverter.toGregorianDate(TemporalDate.NepaliDate(2066, 5, 24)),
+        )
+
+        val expected = listOf(
+            TemporalDate.GregorianDate(2022, 9, 11),
+            TemporalDate.GregorianDate(2014, 1, 25),
+            TemporalDate.GregorianDate(2023, 8, 5),
+            TemporalDate.GregorianDate(2009, 9, 9),
+        )
+
+        assertEquals(expected, results)
+    }
+
+    @Test
+    fun gregorianToNepaliConverter() {
+
+        val results = listOf(
+            NepaliDateConverter.toNepaliDate(TemporalDate.GregorianDate(2022, 9, 11)),
+            NepaliDateConverter.toNepaliDate(TemporalDate.GregorianDate(2014, 1, 25)),
+            NepaliDateConverter.toNepaliDate(TemporalDate.GregorianDate(2023, 8, 5)),
+            NepaliDateConverter.toNepaliDate(TemporalDate.GregorianDate(2009, 9, 9)),
+        )
+
+        val expected = listOf(
+            TemporalDate.NepaliDate(2079, 5, 26),
+            TemporalDate.NepaliDate(2070, 10, 11),
+            TemporalDate.NepaliDate(2080, 4, 20),
+            TemporalDate.NepaliDate(2066, 5, 24),
+        )
+
+        assertEquals(expected, results)
     }
 }

@@ -31,34 +31,7 @@ object NepaliCalendar : Calendar<TemporalDate.NepaliDate> {
     } ?: 0
 
     override fun toGregorianDate(localDate: TemporalDate.NepaliDate): TemporalDate.GregorianDate {
-        val nepaliYear = localDate.year
-        val nepaliMonth = localDate.month
-        val nepaliDay = localDate.day
-
-        var gregorianYear = initialGregorianYear
-        var totalNepaliDays = nepaliDay
-
-        for (year in 1..<nepaliYear) {
-            for (month in 1..12) {
-                totalNepaliDays += monthDays(gregorianYear, month)
-
-                // Adjust for leap years (every 3rd year in Bikram Sambat calendar).
-                if (month == 12 && (year % 3 == 0)) {
-                    totalNepaliDays++
-                }
-            }
-            gregorianYear++
-        }
-
-        var gregorianMonth = 1
-        while (totalNepaliDays > monthDays(nepaliYear, nepaliMonth)) {
-            totalNepaliDays -= monthDays(nepaliYear, nepaliMonth)
-            gregorianMonth++
-        }
-
-        val gregorianDay = totalNepaliDays
-
-        return TemporalDate.GregorianDate(gregorianYear, gregorianMonth, gregorianDay)
+        return NepaliDateConverter.toGregorianDate(localDate)
     }
 
     override fun addDay(localDate: TemporalDate.NepaliDate): TemporalDate.NepaliDate {
