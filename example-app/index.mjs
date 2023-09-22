@@ -20,4 +20,4 @@ const nepaliResult = new PeriodGenerator().generatePeriod({
 
 console.log(gregorianResult)
 console.log(ethiopianResult)
-// console.log(nepaliResult)
+console.log(nepaliResult)
